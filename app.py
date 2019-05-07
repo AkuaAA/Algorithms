@@ -4,7 +4,16 @@ from flask import Flask
 import time
 import random
 import numpy
+import plotly
 from random import randint
+
+#created global variable
+global x_cord
+x_cord =[]
+
+global y_cord
+y_cord =[]
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -24,18 +33,22 @@ def last_time():
 def sort_time():
     current_time = time.time() #method for getting runtime
     x = randint(1, 1000)
+    x_cord.append(x)
     list = numpy.random.random_integers(1, 1000, x)
     #print(list)
     list.sort()
+    print(x_cord)
     time_now = time.time()
     final_time = time_now - current_time
+    y_cord.append(final_time)
+    print(y_cord)
     return str(final_time) #converts into a string
 
 @app.route("/reverse")
 def reverse_time():
     current_time = time.time() #method for getting runtime
     list = ['zero', 'one', 'two', 'three']
-    list.reverse() #method for reverse
+    list[:] = list[::-1] #method for reverse
     time_now = time.time()
     final_time = time_now - current_time
     return str(final_time) #converts into a string
@@ -48,7 +61,6 @@ def shuffle_time():
     time_now = time.time()
     final_time = time_now - current_time
     return str(final_time) #converts into a string
-
 
 
 if __name__ == "__main__":
