@@ -75,6 +75,60 @@ def my_shuffle():
         co_ord.append([k,final_time]) #creates the format of the x and y cordinates the way json likes it
     return jsonify(co_ord) #created to visualise graph
 
+#quadratic graph solution O(N2)
+@app.route("/dupe")
+def dupe():
+    list = [1, 2, 1]
+    dupes = []
+    current_time = time.time()
+    for i in range(0, (len(list) -1), +1):
+        count = 0
+        while count < len(list):
+            if word != count:
+                if list[i] == list[count]:
+                    dupe.append(list[i])
+                    count += 1
+                else:
+                    count += 1
+            else:
+                count += 1
+    time_now = time.time()
+    final_time = time_now - current_time
+    print(dupes)
+    return "yay"
+
+
+
+#linear graph solution - O(N)
+@app.route("/dupe2")
+def dupe2():
+    co_ords = []
+    for k in range (1, 1001, +50):
+        arr = [1, 2, 3, 2]
+        arr_size = len(arr)
+        current_time = time.time()
+        for i in range(0, arr_size):
+            if arr[abs(arr[i])] >= 0:
+                arr[abs(arr[i])] = -arr[abs(arr[i])]
+            else:
+                print (abs(arr[i]), end = " ")
+            time_now = time.time()
+            final_time = time_now - current_time
+            co_ords.append([4, final_time])
+            print("The repeating elements are: ")
+    return "yay"
+
+#visual representation for what is happening in the loop
+#The repeating elements are:
+# loop 0
+#[1, -2, 3, 2]
+# loop 1
+#[1, -2, -3, 2]
+#loop 2
+#[1, -2, -3, -2]
+#loop 3
+#2 [1, -2, -3, -2] #duplicate found!
+
 @app.route("/graph")
 def graph():
     return render_template("graph.html")
